@@ -3,7 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
-const { indexRoute } = require('./routes');
+const { indexRoute } = require('./routes/indexRoute');
 
 const app = express();
 dotenv.config();

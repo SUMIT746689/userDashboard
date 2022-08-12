@@ -8,8 +8,33 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="overflow-hidden">
-    <div class="text-slate-700 flex w-screen h-screen justify-center my-auto font-semibold text-2xl mt-6"> 
+    <div class="w-full text-slate-700 flex w-screen justify-center my-auto font-semibold text-2xl mt-6"> 
         User Dashboard
     </div>
+    <div class="mt-6 w-full">
+        
+        
+        <form class=" flex flex-col gap-4 justify-center mx-auto w-fit">
+            <div class="relative border">
+                <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Select an option</label>
+                <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+                    <option selected>Choose Product Type</option>
+                    <% userCategory.length >0 && userCategory.forEach((value)=>{ %>
+                        <option class="flex col">
+                        <%- value %>
+                        </option>
+                    <% }) %>
+                   
+                </select>
+            </div>
+            <div class="relative border ">
+                <input type="text" id="floating_outlined" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                <label for="floating_outlined" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white  px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Floating outlined</label>
+            </div>
+        </form>
+    </div>
 </body>
+<script type="text/javascript">
+
+</script>
 </html>
