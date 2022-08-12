@@ -40,15 +40,24 @@ const renderIndex = async (req,res,next)=>{
     //await resModel.save();
 
     // await MobilePhoneModel.deleteMany({category :"Other Electronics"})
-    
-    const resAllUserCategoty =await MobilePhoneModel.find({},{_id:0,parentCategory:1});
-    const getAllObjectcategory = 
-    const setresAllUserCategoty =  new Set(resAllUserCategoty);
-    console.log(setresAllUserCategoty);
+    try{
+        const resAllUserCategoty = await MobilePhoneModel.find({});
+        // const getAllObjectcategory = resAllUserCategoty.map(value=>value.parentCategory);
+        // const setresAllUserCategoty =  Array(...new Set(getAllObjectcategory));
+        // console.log(setresAllUserCategoty);
 
-    res.render('index',{
-        userCategory: setresAllUserCategoty
-    });
+        res.status(200).json({
+            category: resAllUserCategoty
+        })
+    }
+    catch(err){
+        res.status(400).json({
+            error: err.message
+        })
+    }
+    // res.render('index',{
+    //     userCategory: setresAllUserCategoty
+    // });
 
 }
 

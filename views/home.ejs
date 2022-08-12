@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Product Category</title>
+</head>
+<body>
+    <div class="relative text-gray-900 text-2xl">
+        <label for="parentCategory" class="block mb-2 text-sm font-medium text-gray-900 ">Category</label>
+        <select id="parentCategory" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-fit p-2.5 ">
+            <option selected>Choose Product Type</option>
+            <% userCategory.length >0 && userCategory.forEach((value)=>{ %>
+                <option class="flex col">
+                    <%- value %>
+                </option>
+            <% }) %>
+           
+        </select>
+    </div>
+</body>
+</html>

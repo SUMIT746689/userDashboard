@@ -7,30 +7,127 @@
     <title>User Dashboard page</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="overflow-hidden">
-    <div class="w-full text-slate-700 flex w-screen justify-center my-auto font-semibold text-2xl mt-6"> 
+<body class="overflow-x-hidden mx-auto">
+    <div class="w-fit text-slate-700 flex w-screen justify-center my-auto font-semibold text-2xl mt-6"> 
         User Dashboard
     </div>
-    <div class="mt-6 w-full">
+    <div class="mt-6 w-fit mx-auto mb-10">
         
-        
-        <form class=" flex flex-col gap-4 justify-center mx-auto w-fit">
-            <div class="relative border">
-                <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Select an option</label>
-                <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+        <form class=" flex flex-col gap-4 justify-center mx-auto w-fit shadow-md shadow-black p-6 rounded">
+            <div class="relative text-gray-900 text-2xl">
+                <label for="parentCategory" class="block mb-2 text-sm font-medium text-gray-900 ">Category</label>
+                <select id="parentCategory" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-fit p-2.5 ">
                     <option selected>Choose Product Type</option>
                     <% userCategory.length >0 && userCategory.forEach((value)=>{ %>
                         <option class="flex col">
-                        <%- value %>
+                            <%- value %>
                         </option>
                     <% }) %>
                    
                 </select>
             </div>
-            <div class="relative border ">
-                <input type="text" id="floating_outlined" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
-                <label for="floating_outlined" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white  px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Floating outlined</label>
+            <div class="relative border rounded-lg ">
+                <input type="text" id="b" class="block px-2.5 pb-2.5 pt-4 w-fit text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                <label for="b" class="absolute text-sm text-gray-500  duration-300 transform -translate-y-4 top-2 z-10 origin-[0] bg-white  px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:peer-focus:-translate-y-4 left-1">Floating outlined</label>
             </div>
+            
+            <div class="relative border rounded-lg ">
+                <input type="text" id="a" class="block px-2.5 pb-2.5 pt-4 w-fit text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                <label for="a" class="absolute text-sm text-gray-500  duration-300 transform -translate-y-4 top-2 z-10 origin-[0] bg-white  px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:peer-focus:-translate-y-4 left-1">Floating outlined</label>
+            </div>
+            <!-- description -->
+            <div class="relative border rounded-lg ">
+                <textarea type="text" id="c" rows="8"  class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " ></textarea>
+                <label for="c" class="absolute text-sm text-gray-500  duration-300 transform -translate-y-4 top-2 z-10 origin-[0] bg-white  px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-120 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-5 peer-focus:top-2 peer-focus:peer-focus:-translate-y-4 left-1">Description</label>
+            </div>
+            <!-- Taka -->
+            <div class="relative border rounded-lg ">
+                <input type="number" id="taka" class="block px-2.5 pb-2.5 pt-4 w-fit text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                <label for="taka" class="absolute text-sm text-gray-500  duration-300 transform -translate-y-4  top-2 z-10 origin-[0] bg-white  px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:peer-focus:-translate-y-4 left-1">Price: ( Taka )</label>
+            </div>
+            <!-- Negotiable -->
+            <div class="flex items-center">
+                <input id="negotiable-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2">
+                <label for="negotiable-checkbox" class="ml-2 text-sm font-medium text-gray-700 "> Negotiable</label>
+            </div>
+            <!-- Image upload -->
+            <div class="bg-gray-100 p-2 w-full shadow-xs">
+                <div class="py-2 font-bold text-gray-700">Add Up to 5 photos : </div>
+                <div class="flex justify-center items-center flex-wrap text-center gap-2">
+                    <label for="dropzone-file" class="flex flex-col justify-center items-center w-40 h-fit bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer ">
+                        <div class="flex flex-col justify-center items-center p-4">
+                            <svg aria-hidden="true" class="mb-3 w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                            <p class="mb-2 text-xs text-gray-500 flex flex-col"><span class="font-bold">Click to upload</span> or drag and drop</p>
+                            <p class="text-xs text-gray-500 flex flex-col"><span> PNG OR JPG </span> (MAX SIZE 1 MB)</p>
+                        </div>
+                        <input id="dropzone-file" type="file" class="hidden" />
+                    </label>
+                    <label for="dropzone-file" class="flex flex-col justify-center items-center w-40 h-fit bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer ">
+                        <div class="flex flex-col justify-center items-center p-4">
+                            <svg aria-hidden="true" class="mb-3 w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                            <p class="mb-2 text-xs text-gray-500 flex flex-col"><span class="font-bold">Click to upload</span> or drag and drop</p>
+                            <p class="text-xs text-gray-500 flex flex-col"><span> PNG OR JPG </span> (MAX SIZE 1 MB)</p>
+                        </div>
+                        <input id="dropzone-file" type="file" class="hidden" />
+                    </label>
+                    <label for="dropzone-file" class="flex flex-col justify-center items-center w-40 h-fit bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer ">
+                        <div class="flex flex-col justify-center items-center p-4">
+                            <svg aria-hidden="true" class="mb-3 w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                            <p class="mb-2 text-xs text-gray-500 flex flex-col"><span class="font-bold">Click to upload</span> or drag and drop</p>
+                            <p class="text-xs text-gray-500 flex flex-col"><span> PNG OR JPG </span> (MAX SIZE 1 MB)</p>
+                        </div>
+                        <input id="dropzone-file" type="file" class="hidden" />
+                    </label>
+                    <label for="dropzone-file" class="flex flex-col justify-center items-center w-40 h-fit bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer ">
+                        <div class="flex flex-col justify-center items-center p-4">
+                            <svg aria-hidden="true" class="mb-3 w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                            <p class="mb-2 text-xs text-gray-500 flex flex-col"><span class="font-bold">Click to upload</span> or drag and drop</p>
+                            <p class="text-xs text-gray-500 flex flex-col"><span> PNG OR JPG </span> (MAX SIZE 1 MB)</p>
+                        </div>
+                        <input id="dropzone-file" type="file" class="hidden" />
+                    </label>
+                    <label for="dropzone-file" class="flex flex-col justify-center items-center w-40 h-fit bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer ">
+                        <div class="flex flex-col justify-center items-center p-4">
+                            <svg aria-hidden="true" class="mb-3 w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                            <p class="mb-2 text-xs text-gray-500 flex flex-col"><span class="font-bold">Click to upload</span> or drag and drop</p>
+                            <p class="text-xs text-gray-500 flex flex-col"><span> PNG OR JPG </span> (MAX SIZE 1 MB)</p>
+                        </div>
+                        <input id="dropzone-file" type="file" class="hidden" />
+                    </label>
+                </div> 
+            </div>
+            
+            <div class="py-4">
+                <div>
+                    <div class="font-bold text-sky-700">Contact details</div>
+                   
+                </div>
+                <div class="pt-4">
+                    <div class="text-sm">Name:</div>
+                    <div>Mehedi Hasan</div>
+                </div>
+                <div class="py-4">
+                    <div class="text-sm">Email:</div>
+                    <div>mehedihasansumit@gmail.com</div>
+                </div>
+                <div class="flex  w-full">
+                    <div class="relative border rounded-lg flex-grow">
+                        <input type="number" id="mobile" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                        <label for="mobile" class="absolute text-sm text-gray-500  duration-300 transform -translate-y-4  top-2 z-10 origin-[0] bg-white  px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:peer-focus:-translate-y-4 left-1">Add phone number</label>
+                    </div>
+                    <button class="ml-2 bg-blue-500 text-white font-semibold px-6 py-2">Add</button>
+                </div>
+            </div>
+
+            <!-- term and condition -->
+            <div class="flex items-center">
+                <input id="link-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2">
+                <label for="link-checkbox" class="ml-2 text-sm font-medium text-gray-900 ">I agree with the <a href="#" class="text-blue-600 hover:underline">terms and conditions</a>.</label>
+            </div>
+            <!-- post product -->
+            <button class="bg-blue-700 py-2 text-white font-semibold ">
+                Post product
+            </button>
         </form>
     </div>
 </body>

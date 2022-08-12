@@ -4,9 +4,12 @@ const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const { indexRoute } = require('./routes/indexRoute');
+const cors = require('cors');
 
 const app = express();
 dotenv.config();
+
+app.use(cors());
 
 //database connection
 mongoose.connect(process.env.MONGO_CONNECTION_STRING)
@@ -20,9 +23,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
 
 //set view engine
-app.set('view engine','ejs');
+// app.set('view engine','ejs');
 
-app.get('/',indexRoute);
+app.use('/userCategory',indexRoute);
 
 
-app.listen(3000,()=>console.log('Connecting PORT',3000));
+app.listen(5000,()=>console.log('Connecting PORT',5000));
