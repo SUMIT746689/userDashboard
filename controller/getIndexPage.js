@@ -174,7 +174,7 @@ const renderIndex = async (req,res,next)=>{
         // console.log(setresAllUserCategoty);
         
         
-        console.log(resAllUserCategoty)
+        // console.log(resAllUserCategoty)
         res.status(200).json({
             category: resAllUserCategoty,
             // resModel

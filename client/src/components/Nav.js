@@ -31,7 +31,7 @@ function Nav({userDashboard}) {
         if(userDashboard.length >0) {
           //get subcategories 
           userDashboard.forEach((value)=>{
-            console.log(value.category=== category);
+            // console.log(value.category=== category);
             if(value.category === category) 
             {
                subCategories.push(value.subCategory)
@@ -60,8 +60,8 @@ function Nav({userDashboard}) {
   }
  
   return (
-  <aside className="sticky top-0 min-w-fit min-h-screen h-screen overflow-y-scroll bg-gray-100 dark:bg-gray-900" aria-label="Sidebar text-left normal-case">
-    <div className="overflow-y-auto py-4 px-3 bg-gray-50 dark:bg-gray-800">
+  <aside className="sticky top-0 min-w-fit min-h-screen h-screen overflow-y-auto bg-gray-100 dark:bg-gray-900" aria-label="Sidebar text-left normal-case">
+    <div className="overflow-y-auto py-4 px-3 bg-gray-50 dark:bg-gray-800 ">
         <ul className="space-y-2">
           
           <li>
@@ -84,8 +84,8 @@ function Nav({userDashboard}) {
                             subCategories[category] && <ul id="dropdown-example" className={`${subCategoriesDropdown[category] ? '' : 'hidden '}  py-2 space-y-2 `}>
                             {
                               subCategories[category].map((subCategory,index)=>
-                              <li key={index} className='border dark:border-gray-600 '>
-                                <a href="#" className="capitalize text-left flex items-left py-2 pl-12 pr-1 w-full text-base font-normal text-gray-900  transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 active:bg-gray-300 dark:active:bg-gray-800 ">{subCategory}</a>
+                              <li key={index} className='border border-gray-300 dark:border-gray-600 '>
+                                <a href={`/userCategory/${category.split(' ').join('_')}/${subCategory.split(' ').join('_')}`} className="capitalize text-left flex items-left py-2 pl-12 pr-1 w-full font-normal text-sm text-gray-900  transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 active:bg-gray-300 dark:active:bg-gray-800 ">{subCategory}</a>
                               </li>
                               )
                             }
