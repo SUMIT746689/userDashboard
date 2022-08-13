@@ -24,9 +24,12 @@ function App() {
   
 
   return (
-    <div className="App">
-      <Nav userDashboard={userDashboard}/>
-      <Dashboard/>
+    <div className="App flex min-h-screen">
+      <Nav className='w-72 bg-gray-300' userDashboard={userDashboard}/>
+      <div className='max-w-2xl relative m-auto text-6xl uppercase text-gray-300 font-semibold'>
+        Please first Select a category
+      </div>
+      {/* <Dashboard/> */}
     </div>
   );
 }

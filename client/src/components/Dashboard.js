@@ -34,8 +34,8 @@ function Dashboard() {
                     <label htmlFor="negotiable-checkbox" className="ml-2 text-sm font-medium text-gray-700 "> Negotiable</label>
                 </div>
                 {/* <!-- Image upload --> */}
-                <div className="bg-gray-100 p-4 w-full shadow-xs">
-                    <div className="pt-2 pb-2 font-bold text-gray-700">Add Up to 5 photos : </div>
+                <div className="bg-gray-100 w-full shadow-xs p-2">
+                    <div className="pb-2 text-lg font-bold text-gray-700">Add Up to 5 photos : </div>
                     <div className="flex justify-center items-center flex-wrap text-center gap-2">
                         <label htmlFor="dropzone-file" className="flex flex-col justify-center items-center w-40 h-fit bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer ">
                             <div className="flex flex-col justify-center items-center p-4">
