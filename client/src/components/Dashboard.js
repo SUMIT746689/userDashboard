@@ -4,8 +4,9 @@ function Dashboard() {
     const [subCategory,setSubCategory] =useState({});
     const [properties,setProperties] =useState([]);
     const [jsxSubCategoriesProperties,setjsxSubCategoriesProperties] =useState([]);
-
     const [subCategoryError,setSubCategoryError] =useState(true);
+    const [subCategoryDropdown,setSubCategorydropdown] =useState({});
+
 
     //get subcategory unique data
     useEffect(()=>{
@@ -28,6 +29,15 @@ function Dashboard() {
         Object.keys(subCategory)?.length > 1 && setProperties(()=>Object.keys(subCategory));
     },[subCategory])
 
+    const handleDropdown =(property) =>{
+        const data =  '';
+        const subCategoriesDropdownCopy = {...subCategoryDropdown};
+        
+        const copy =  subCategoriesDropdownCopy[property]  ?  {...subCategoriesDropdownCopy,subCategoriesDropdownCopy[property]:false} : subCategoriesDropdownCopy[property]=true
+        console.log(subCategoriesDropdownCopy,copy)
+
+        setSubCategorydropdown(()=>copy)
+    }
 
     //create jsx for subcategories properties
     useEffect(()=>{
@@ -35,15 +45,15 @@ function Dashboard() {
         if(properties.length === 0) return  ;
         const jsxSubCategoriesProperties = properties.map((property,index)=>{
         
-            if('category' === property || 'subCategory' === property ) return ' '; 
+            if('category' === property || 'subCategory' === property ) return <div key={property}></div>; 
             
             if('condition' === property ){
                 return(
-                <div key={index} className="relative ">
+                <div key={property} className="relative ">
                 {property}
                 <div className='flex gap-4'>
                 {subCategory[property].map((value,index)=>
-                    <div className="flex items-center ">
+                    <div key={index} className="flex items-center ">
                         <input id="link-checkbox" type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2"/>
                         <label htmlFor="link-checkbox" className="ml-2 text-sm font-medium text-gray-900 ">{value}</label>
                     </div>
@@ -53,16 +63,35 @@ function Dashboard() {
                 )
             }
 
-            if(subCategory[property].constructor === String){
+            if(subCategory[property]?.constructor === String){
                 return(
-                    <div key={index} className="relative border rounded-lg ">
+                    <div key={property} className="relative border rounded-lg ">
                         <input type="text" id={index} className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
                         <label htmlFor={index} className="absolute text-sm text-gray-500  duration-300 transhtmlForm -translate-y-4 top-2 z-10 origin-[0] bg-white  px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:peer-focus:-translate-y-4 left-1">{property}</label>
                     </div>
                 )
             }
-            if(subCategory[property].constructor === Array){
-                return('')
+            if(subCategory[property]?.constructor === Array ){
+                return(
+                <div key={property} className={`font-medium text-gray-600`}>
+                    <button onClick={()=> handleDropdown(property)} type="button" className="capitalize flex items-center py-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100  border" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
+                        <span className="text-md flex-1 ml-3 text-left whitespace-nowrap ">{property}</span>
+                        <svg sidebar-toggle-item className={ ` duration-150 w-6 h-6`} fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
+                    </button>
+                    <div className={`${subCategoryDropdown[property] ? '' : 'hidden '} max-h-60 overflow-auto shadow shadow-black`}>
+                    {
+                        subCategory[property].length > 0 &&
+                        subCategory[property].map((value)=>
+                            <ul key={value} className='pl-4 text-sm border-t py-2 hover:bg-gray-200 duration-150 cursor-pointer'>{value}</ul>
+                        )
+                    }
+                    </div>
+                </div>
+                )
+            }
+            
+            if(subCategory[property]?.constructor === Array){
+                return(<div key={index} ></div>)
             }
             })
         
@@ -70,8 +99,22 @@ function Dashboard() {
 
     },[properties])
     
+
+    //for all dropdown handle for subCategory default 
     useEffect(()=>{
-        console.log(properties,subCategory,subCategoryError) ; 
+        
+        if(properties.length >0){
+            const arrays = {}; 
+            properties.forEach(element => {
+                arrays[element] = false;
+            });
+        }
+        
+    },[properties])
+
+    useEffect(()=>{
+        console.log()
+        // console.log(properties,subCategory,subCategoryError) ; 
     })
   return (
     <>
@@ -95,7 +138,7 @@ function Dashboard() {
                         properties.length >0
                         &&
                         <div className='capitalize font-semibold text-gray-700'>
-                            <sapn> Sub-Category :</sapn> <span className='text-green-600'> {subCategory['subCategory']}</span> 
+                            <span> Sub-Category :</span> <span className='text-green-600'> {subCategory['subCategory']}</span> 
                         </div> 
                     }
                     {
@@ -207,10 +250,11 @@ function Dashboard() {
                 </form>
             </div>
         </div>
+        
         :
         
         <div className='max-w-2xl relative m-auto text-6xl uppercase text-gray-300 font-semibold'>
-            Please first Select a category
+            Please, first Select a category
         </div>
     }
     </>
