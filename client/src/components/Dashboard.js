@@ -5,7 +5,8 @@ function Dashboard() {
     const [properties,setProperties] =useState([]);
     const [jsxSubCategoriesProperties,setjsxSubCategoriesProperties] =useState([]);
     const [subCategoryError,setSubCategoryError] =useState(true);
-    const [subCategoryDropdown,setSubCategorydropdown] =useState({});
+    const [subCategoryDropdown,setSubCategorydropdown] =useState(null);
+    const [formValue,setFormValue] =useState({});
 
 
     //get subcategory unique data
@@ -30,13 +31,16 @@ function Dashboard() {
     },[subCategory])
 
     const handleDropdown =(property) =>{
-        const data =  '';
-        const subCategoriesDropdownCopy = {...subCategoryDropdown};
-        
-        const copy =  subCategoriesDropdownCopy[property]  ?  {...subCategoriesDropdownCopy,subCategoriesDropdownCopy[property]:false} : subCategoriesDropdownCopy[property]=true
-        console.log(subCategoriesDropdownCopy,copy)
+        console.log(property)
+        const updateData = property === subCategoryDropdown ? null : property; 
+        setSubCategorydropdown((value)=> updateData);
+    }
 
-        setSubCategorydropdown(()=>copy)
+    const handleSetFormValue = (property,value)=>{
+        const copyFormValue = {...formValue};
+        if(property === 'condition' && copyFormValue[property] === value ) { copyFormValue[property] = '' ;}
+        else {copyFormValue[property] = value ;}
+        setFormValue(()=>copyFormValue);
     }
 
     //create jsx for subcategories properties
@@ -44,17 +48,17 @@ function Dashboard() {
 
         if(properties.length === 0) return  ;
         const jsxSubCategoriesProperties = properties.map((property,index)=>{
-        
-            if('category' === property || 'subCategory' === property ) return <div key={property}></div>; 
+            console.log(subCategory[property] ==null,property)
+            if( property === 'category' || property === 'subCategory' ) return <span key={property}></span>; 
             
-            if('condition' === property ){
+            if( property === 'condition'){
                 return(
                 <div key={property} className="relative ">
-                {property}
+                {property}:
                 <div className='flex gap-4'>
                 {subCategory[property].map((value,index)=>
                     <div key={index} className="flex items-center ">
-                        <input id="link-checkbox" type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2"/>
+                        <input onChange={(e)=>handleSetFormValue(property,value)} id="link-checkbox" type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2" checked={formValue[property] === value ? true : false}/>
                         <label htmlFor="link-checkbox" className="ml-2 text-sm font-medium text-gray-900 ">{value}</label>
                     </div>
                 )}
@@ -62,42 +66,46 @@ function Dashboard() {
                 </div>
                 )
             }
-
+            if(subCategory[property] == null){
+                return(<div key={property} className="relative border rounded-lg ">
+                        <input onChange={(e)=>handleSetFormValue(property,e.target.value)} type="number" id={index} className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                        <label htmlFor={index} className="capitalize absolute text-sm text-gray-500  duration-300 transhtmlForm -translate-y-4 top-2 z-10 origin-[0] bg-white  px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:peer-focus:-translate-y-4 left-1">{property}</label>
+                    </div>
+                )
+            }
             if(subCategory[property]?.constructor === String){
                 return(
                     <div key={property} className="relative border rounded-lg ">
-                        <input type="text" id={index} className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
-                        <label htmlFor={index} className="absolute text-sm text-gray-500  duration-300 transhtmlForm -translate-y-4 top-2 z-10 origin-[0] bg-white  px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:peer-focus:-translate-y-4 left-1">{property}</label>
+                        <input onChange={(e)=>handleSetFormValue(property,e.target.value)} type="text"  id={index} className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                        <label htmlFor={index} className="capitalize absolute text-sm text-gray-500  duration-300 transhtmlForm -translate-y-4 top-2 z-10 origin-[0] bg-white  px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:peer-focus:-translate-y-4 left-1">{property}</label>
                     </div>
                 )
             }
             if(subCategory[property]?.constructor === Array ){
+                
                 return(
-                <div key={property} className={`font-medium text-gray-600`}>
-                    <button onClick={()=> handleDropdown(property)} type="button" className="capitalize flex items-center py-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100  border" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
-                        <span className="text-md flex-1 ml-3 text-left whitespace-nowrap ">{property}</span>
-                        <svg sidebar-toggle-item className={ ` duration-150 w-6 h-6`} fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
+                <div key={property} className={`font-medium text-gray-600 relative`}>
+                    <div className="capitalize text-md pb-2 flex-1 ml-3 text-left whitespace-nowrap ">{formValue[property] && property }</div>
+                    <button onClick={()=>handleDropdown(property)} type="button" className="capitalize flex items-center py-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100  border" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
+                        <span className="text-md flex-1 ml-3 text-left whitespace-nowrap ">{formValue[property] || property }</span>
+                        <svg  className={ `${subCategoryDropdown === property ? 'rotate-90 ': ' '} duration-150 w-6 h-6`} fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
                     </button>
-                    <div className={`${subCategoryDropdown[property] ? '' : 'hidden '} max-h-60 overflow-auto shadow shadow-black`}>
+                    <div onClick={()=>handleDropdown(property)} className={`${subCategoryDropdown === property ? ' ' : 'hidden '} bg-white w-full absolute z-20 max-h-56 overflow-auto shadow shadow-black`}>
                     {
                         subCategory[property].length > 0 &&
                         subCategory[property].map((value)=>
-                            <ul key={value} className='pl-4 text-sm border-t py-2 hover:bg-gray-200 duration-150 cursor-pointer'>{value}</ul>
+                            <ul key={value} onClick={()=>handleSetFormValue(property,value)} className='pl-4 text-sm border-t py-2 hover:bg-gray-200 duration-150 cursor-pointer'>{value}</ul>
                         )
                     }
                     </div>
                 </div>
                 )
             }
-            
-            if(subCategory[property]?.constructor === Array){
-                return(<div key={index} ></div>)
-            }
-            })
+        })
         
         setjsxSubCategoriesProperties(()=>jsxSubCategoriesProperties)
 
-    },[properties])
+    },[properties,subCategoryDropdown,formValue])
     
 
     //for all dropdown handle for subCategory default 
@@ -113,7 +121,7 @@ function Dashboard() {
     },[properties])
 
     useEffect(()=>{
-        console.log()
+        console.log(formValue)
         // console.log(properties,subCategory,subCategoryError) ; 
     })
   return (
@@ -145,15 +153,6 @@ function Dashboard() {
                         jsxSubCategoriesProperties
                     }
 
-                    <div className="relative border rounded-lg ">
-                        <input type="text" id="b" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
-                        <label htmlFor="b" className="absolute text-sm text-gray-500  duration-300 transhtmlForm -translate-y-4 top-2 z-10 origin-[0] bg-white  px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:peer-focus:-translate-y-4 left-1">Floating outlined</label>
-                    </div>
-                    
-                    <div className="relative border rounded-lg ">
-                        <input type="text" id="a" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
-                        <label htmlFor="a" className="absolute text-sm text-gray-500  duration-300 transhtmlForm -translate-y-4 top-2 z-10 origin-[0] bg-white  px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:peer-focus:-translate-y-4 left-1">Floating outlined</label>
-                    </div>
                     {/* <!-- description --> */}
                     <div className="relative border rounded-lg ">
                         <textarea type="text" id="c" rows="8"  className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " ></textarea>
@@ -231,8 +230,8 @@ function Dashboard() {
                         </div>
                         <div className="flex  w-full">
                             <div className="relative border rounded-lg flex-grow">
-                                <input type="number" id="mobile" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
-                                <label htmlFor="mobile" className="absolute text-sm text-gray-500  duration-300 transhtmlForm -translate-y-4  top-2 z-10 origin-[0] bg-white  px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:peer-focus:-translate-y-4 left-1">Add phone number</label>
+                                <input type="number" id="mobile" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-white rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                                <label htmlFor="mobile" className="bg-transparent absolute text-sm text-gray-500  duration-300 transhtmlForm -translate-y-4  top-2 z-10 origin-[0] px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:peer-focus:-translate-y-4 left-1">Add phone number</label>
                             </div>
                             <button className="ml-2 bg-blue-500 text-white font-semibold px-6 py-2">Add</button>
                         </div>
