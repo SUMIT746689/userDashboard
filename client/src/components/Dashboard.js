@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Routes, Route, useParams } from 'react-router-dom';
 
 function Dashboard() {
     const [subCategory,setSubCategory] =useState({});
@@ -9,10 +10,15 @@ function Dashboard() {
     const [formValue,setFormValue] =useState({});
 
 
+    let { category,subCata } = useParams();
+    console.log(useParams())
+
     //get subcategory unique data
-    useEffect(()=>{
-        console.log(window.location.pathname);
-        fetch(`${window.location.pathname}`)
+    useEffect( ()=>{
+        console.log(subCata,category)
+        if(!category && !subCata) return ;
+       
+        fetch(`/userCategory/${category}/${subCata}`)
         .then((res)=>res.json())
         .then((data)=>{
             console.log(data);
@@ -23,7 +29,8 @@ function Dashboard() {
             if(data.error) return setSubCategoryError(()=>true)
         })
         .catch((err)=>{console.log(err.message)})
-    },[]);
+
+    },[category,subCata]);
 
     //Subcategories Unique properties
     useEffect(()=>{
@@ -121,7 +128,8 @@ function Dashboard() {
     },[properties])
 
     useEffect(()=>{
-        console.log(formValue)
+
+        console.log(subCategory ,formValue)
         // console.log(properties,subCategory,subCategoryError) ; 
     })
   return (

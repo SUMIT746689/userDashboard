@@ -4,7 +4,8 @@
   "description": "creating user dashboaed for add user product for sell",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server",
+    "start": "node server",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "mehedi hasan",

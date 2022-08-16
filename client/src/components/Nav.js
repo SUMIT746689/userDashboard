@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Link} from "react-router-dom";
 
 function Nav({userDashboard}) {
   const [showDropdown,setShowDropdown]=useState(false);
@@ -85,7 +86,7 @@ function Nav({userDashboard}) {
                             {
                               subCategories[category].map((subCategory,index)=>
                               <li key={index} className='border border-gray-300 dark:border-gray-600 '>
-                                <a href={`/userCategory/${category.split(' ').join('_')}/${subCategory.split(' ').join('_')}`} className="capitalize text-left flex items-left py-2 pl-12 pr-1 w-full font-normal text-sm text-gray-900  transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 active:bg-gray-300 dark:active:bg-gray-800 ">{subCategory}</a>
+                                <Link to={`/userCategory/${category.split(' ').join('_')}/${subCategory.split(' ').join('_')}`} className="capitalize text-left flex items-left py-2 pl-12 pr-1 w-full font-normal text-sm text-gray-900  transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 active:bg-gray-300 dark:active:bg-gray-800 ">{subCategory}</Link>
                               </li>
                               )
                             }

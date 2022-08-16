@@ -175,6 +175,7 @@ const renderIndex = async (req,res,next)=>{
         
         
         // console.log(resAllUserCategoty)
+        console.log('found')
         res.status(200).json({
             category: resAllUserCategoty,
             // resModel

@@ -4,7 +4,8 @@ const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const { indexRoute } = require('./routes/indexRoute');
-const cors = require('cors');
+const cors = require('cors'); 
+const path = require('path')
 
 const app = express();
 dotenv.config();
@@ -27,5 +28,9 @@ app.use(bodyParser.urlencoded({extended:false}));
 
 app.use('/userCategory',indexRoute);
 
+//set production for heroku
+if(process.env.Node_ENV ==='production'){
+    app.use(express.static("client/build"));
+}
 
-app.listen(5000,()=>console.log('Connecting PORT',5000));
+app.listen(process.env.PORT || 5000,()=>console.log('Connecting PORT',process.env.PORT || 5000));

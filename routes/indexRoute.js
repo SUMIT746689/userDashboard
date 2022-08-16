@@ -8,7 +8,6 @@ const indexRoute = express.Router();
 indexRoute.get('/', renderIndex)
 indexRoute.get('/:category/:subCategory', userCategorySend)
 
-
 module.exports = {
     indexRoute
 }
